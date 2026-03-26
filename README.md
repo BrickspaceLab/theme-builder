@@ -2,7 +2,7 @@
 
 Agent skill for authoring **Shopify Online Store 2.0** JSON templates (`templates/*.json`) and block-based theme JSON: discover section and block types from the theme on disk, align settings with Liquid `{% schema %}`, and emit valid template JSON.
 
-Repository folder name: `theme-agent` (clone or copy this repo into a folder with that name locally if you prefer).
+Repository: [github.com/BrickspaceLab/theme-agent](https://github.com/BrickspaceLab/theme-agent). Folder name when cloning: `theme-agent`.
 
 ## Contents
 
@@ -18,29 +18,27 @@ Repository folder name: `theme-agent` (clone or copy this repo into a folder wit
 This skill is a standard [Agent Skill](https://agentskills.io) with `SKILL.md` at the repo root, so it installs with the open [`skills` CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills add <github-owner>/theme-agent
+npx skills add BrickspaceLab/theme-agent
 ```
-
-Replace `<github-owner>` with the GitHub user or organization that hosts this repository (public repo required).
 
 **Examples:**
 
 - List what will be installed without installing yet:
 
   ```bash
-  npx skills add <github-owner>/theme-agent --list
+  npx skills add BrickspaceLab/theme-agent --list
   ```
 
 - Install for **Cursor** only (non-interactive):
 
   ```bash
-  npx skills add <github-owner>/theme-agent -a cursor -y
+  npx skills add BrickspaceLab/theme-agent -a cursor -y
   ```
 
 - Install **globally** (`-g`) so the skill is available in every project; the CLI prints the destination path (for Cursor, often under `~/.agents/skills/` or `~/.cursor/skills/` per your [skills CLI](https://github.com/vercel-labs/skills) version):
 
   ```bash
-  npx skills add <github-owner>/theme-agent -g -a cursor -y
+  npx skills add BrickspaceLab/theme-agent -g -a cursor -y
   ```
 
 The CLI copies or symlinks the skill folder; `reference/` is included alongside `SKILL.md`.
@@ -81,16 +79,18 @@ Replace `<owner-repo>` with the marketplace identifier once published.
 
 ## Publishing
 
-1. Create a **public** repository on GitHub (e.g. `theme-agent`) and push this tree:
+1. **Clone / push** (for maintainers or forks):
 
    ```bash
-   git remote add origin https://github.com/<you>/theme-agent.git
+   git clone https://github.com/BrickspaceLab/theme-agent.git
+   # or
+   git remote add origin https://github.com/BrickspaceLab/theme-agent.git
    git push -u origin main
    git tag v1.0.0
    git push origin v1.0.0
    ```
 
-   After the repo is public, others can run `npx skills add <you>/theme-agent` as above.
+   Public install: `npx skills add BrickspaceLab/theme-agent`.
 
 2. **LobeHub** or other marketplaces: follow their contributor flow (often linking the GitHub repo and using `@lobehub/market-cli` or the site UI). This repo may be tagged at `v1.0.0` for versioned installs.
 
