@@ -1,6 +1,6 @@
 # Shopify Online Store 2.0 — JSON templates reference
 
-This file supplements [SKILL.md](../SKILL.md) with terminology and links. **Always** confirm `type` values and settings against the **target theme**’s `sections/` and `{% schema %}`.
+This file supplements [SKILL.md](../SKILL.md) with terminology and links. For block-type patterns when the theme uses `blocks/`, see [block-reference.md](block-reference.md). **Always** confirm `type` values and settings against the **target theme**’s `sections/`, `blocks/`, and `{% schema %}`.
 
 ## Official documentation
 
