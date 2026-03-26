@@ -42,6 +42,18 @@ Replace `\<owner-repo\>` with the marketplace identifier once published.
 - **In scope:** JSON templates under `templates/`, section `type` / block `type` strings that exist in **that** theme, settings keys defined in section schemas.
 - **Out of scope:** Store credentials, `config/settings_data.json` theme-setup setups (unless you extend the skill), Checkout UI extensions, Theme app extension bundles.
 
+## Publishing
+
+1. Create a new **public** repository on GitHub (e.g. `shopify-theme-json-skill`) and push this tree:
+
+   ```bash
+   git remote add origin https://github.com/<you>/<repo>.git
+   git push -u origin main
+   git push origin v1.0.0
+   ```
+
+2. **LobeHub** or other marketplaces: follow their contributor flow (often linking the GitHub repo and using `@lobehub/market-cli` or the site UI). This repo is already tagged at `v1.0.0` for versioned installs.
+
 ## License
 
 [MIT](LICENSE)
