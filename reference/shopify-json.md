@@ -1,6 +1,6 @@
 # Shopify Online Store 2.0 — JSON templates reference
 
-This file supplements [SKILL.md](../SKILL.md) with terminology and links. For block-type patterns when the theme uses `blocks/`, follow **Find appropriate blocks** and **Analyze block and section schemas** in SKILL.md. **Always** confirm `type` values and settings against the **target theme**’s `sections/`, `blocks/`, and `{% schema %}`.
+This file supplements [SKILL.md](../SKILL.md) with terminology and links. For block-type patterns when the theme uses `blocks/`, follow **Discover allowed block types** and **Analyze block and section schemas** in SKILL.md. Optional theme-specific recipes live under [examples/](../examples/). **Always** confirm `type` values and settings against the **target theme**’s `sections/`, `blocks/`, and `{% schema %}`.
 
 ## Official documentation
 

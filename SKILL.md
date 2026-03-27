@@ -1,14 +1,13 @@
 ---
-name: theme-agent
+name: theme-builder
 description: >-
-  Helps create and edit Shopify Online Store 2.0 JSON templates (templates/*.json) and
-  theme JSON that uses blocks from /blocks: understand requirements, find blocks, analyze
-  {% schema %}, and compile valid sections/order/block_order structures. Use when working
-  with Shopify templates, JSON templates, the theme editor, or when adding layouts, grids,
-  sections, or blocks to a Shopify theme.
+  Theme Builder: create and edit Shopify Online Store 2.0 JSON templates (templates/*.json) and
+  theme JSON that uses blocks from /blocks: discover allowed block types, analyze {% schema %}, and
+  compile valid sections/order/block_order structures. Use when working with Shopify templates,
+  JSON templates, the theme editor, or when adding layouts, grids, sections, or blocks to a Shopify theme.
 ---
 
-# Theme Agent — Shopify JSON templates (Online Store 2.0)
+# Theme Builder — Shopify JSON templates (Online Store 2.0)
 
 ## When to use this skill
 
@@ -25,11 +24,20 @@ If the theme uses a **build step** that generates `sections/` or `blocks/`, read
 
 ## Quick start
 
-1. **Understand requirements** — Parse prompts or images for layout (grid, flex, slider, inline), columns/rows, content types, and styling.
-2. **Find blocks** — Search the theme’s `blocks/` directory for appropriate block types; resolve section `type` from `sections/*.liquid` when editing template-level JSON.
-3. **Analyze schemas** — Read each block or section `{% schema %}` for allowed children, setting IDs, types, defaults, and presets.
-4. **Compile JSON** — Build valid `sections`, nested `blocks`, and `order` / `block_order` arrays per Shopify’s template structure.
-5. **Validate** — Run the checklist below before finishing.
+1. **Understand requirements** — Parse prompts or images for layout, columns/rows, content types, and styling (see **Design images and mockups** when the input is visual).
+2. **Discover allowed block types** — List `blocks/` and read parent `{% schema %}` so every `type` you use exists in this theme (required; see below).
+3. **Map to real blocks** — Choose types only from that allowed set; resolve section `type` from `sections/*.liquid` for template-level JSON.
+4. **Analyze schemas** — Read each block or section `{% schema %}` for allowed children, setting IDs, types, defaults, and presets.
+5. **Compile JSON** — Build valid `sections`, nested `blocks`, and `order` / `block_order` arrays per Shopify’s template structure.
+6. **Validate** — Run the checklist below before finishing.
+
+## Bundled theme examples (optional)
+
+This skill package may ship an **`examples/`** folder with **indexed** recipes keyed to specific themes or theme families. **SKILL.md does not embed any named theme’s block vocabulary**—that lives only in the matching file under `examples/`.
+
+**When to use them:** After **Discover allowed block types**, follow **Choosing the best example to reference** in [examples/README.md](examples/README.md): compare the workspace theme to each indexed example (theme name, README, overlap between `blocks/` basenames and the example’s described types). Open **at most one** best-matched file, or **none** if nothing fits—then copy patterns from existing `templates/*.json` in the workspace theme.
+
+**Never** emit `type` strings from a bundled example until they appear in the target theme’s allowed set.
 
 ## Workflow
 
@@ -45,18 +53,42 @@ If the theme uses a **build step** that generates `sections/` or `blocks/`, read
 **From images:**
 
 - Visual layout, columns and rows, elements and relationships, spacing and alignment
+- Visual hierarchy (headline vs body vs CTAs), approximate alignment (left/center/right), and content categories (hero, cards, logos, footer, etc.)
+- **What is ambiguous** — Exact breakpoints, font sizes, and pixel spacing are not reliably readable from a static image; call that out instead of guessing.
 
-### Step 2 — Find appropriate blocks
+**Design images and mockups**
 
-Search the theme’s **`blocks/`** directory. Common patterns (names vary by theme):
+When the user provides a screenshot, Figma export, or design mockup:
 
-| Role | Typical block types |
-|------|---------------------|
-| **Layout** | `layout__grid` (children: `_g__grid-item`), `layout__flex` (`_g__flex-item`), `layout__slider` (`_g__slider-item`), `layout__inline`, `g__container` |
-| **Content** | `image`, `g__button`, `richtext`, `g__product-card`, `g__article-card`, `g__collection-card` |
-| **Item wrappers** | `_g__grid-item`, `_g__flex-item`, `_g__slider-item` |
+- **Extract:** structure (sections, columns, stacking order), content types, and qualitative spacing rhythm (tight vs airy), not exact pixel values unless provided separately.
+- **Do not infer** concrete Shopify `type` strings, setting keys, or enum values from the image alone. **Always** reconcile with **Discover allowed block types** on the target theme.
+- **Limits:** JSON templates do not express every visual detail. Arbitrary typography, one-off CSS, or global palette changes may require **theme settings**, **section settings**, or **custom CSS** outside the core JSON-template workflow—say so when the design cannot be matched with schema-defined settings only.
+- If the design **cannot** be built with the theme’s available blocks and settings, **state the gap** and offer the closest achievable structure.
 
-For **template-level** sections, list `sections/` and map JSON `type` to section files (usually basename of `sections/<type>.liquid`).
+### Discover allowed block types (required)
+
+Do this **before** naming or emitting any `type` in JSON. This is the operational way to satisfy the validation rule that every `type` exists in the theme.
+
+1. **List** files in **`blocks/`** — For themes using theme blocks, the basename of `blocks/<name>.liquid` is typically a valid block `type` (confirm in schema).
+2. **Read** **`{% schema %}`** on each **section** you add or edit in the template, and on each **block** file you nest. Collect every block `type` the parent allows (specific types, `@theme`, `@app`, etc., per Shopify rules for that parent).
+3. **Build the allowed set** — Union of: types from `blocks/` that the parent schema permits, types declared in the parent’s `blocks` array, and section `type` values from `sections/<type>.liquid` for template-level `sections`.
+4. **Only use types in that set.** If the user asks for a layout that no block provides, propose the **closest real types**, copy a working template in the same theme, or note that **adding a new block** is theme development work outside JSON-only edits.
+
+```mermaid
+flowchart LR
+  req[Requirements] --> discover[List blocks and schemas]
+  discover --> allowed[Allowed type set]
+  allowed --> map[Map layout to real types]
+  map --> json[Emit JSON]
+```
+
+### Step 2 — Map requirements to real blocks
+
+Within the **allowed type set** from the step above:
+
+- Search the theme’s **`blocks/`** directory and section schemas for blocks that match the layout and content needs.
+- For **template-level** sections, list `sections/` and map JSON `type` to section files (usually basename of `sections/<type>.liquid`).
+- **Optional bundled example:** If [examples/README.md](examples/README.md) lists a file that **matches** this workspace theme (per its matching rules), open that file for patterns and sample JSON **after** every `type` you use is confirmed on disk. If no example fits, use a working template in this theme instead.
 
 ### Step 3 — Analyze block and section schemas
 
@@ -96,97 +128,23 @@ Follow Shopify’s JSON template shape. If the theme ships **Cursor rules** (e.g
 
 **Block instance IDs:**
 
-- Use descriptive prefixes: `layout_grid_`, `g_container_`, `image_`, `g_button_`.
-- Append a short unique suffix if needed: e.g. `layout_grid_abc123`.
+- Use descriptive prefixes that reflect role (e.g. layout, container, item, image, text)—match conventions you see in the theme’s existing JSON.
+- Append a short unique suffix if needed.
 - Keep IDs unique within the template (and within each nested `blocks` scope per schema rules).
 
-**Settings (themes with layout blocks):**
+**Settings (block-based themes):**
 
-- Grids: often `row_desktop`, `row_mobile`, `gap_size`, `enable_x_padding`.
+- Grids often use `row_desktop`, `row_mobile`, `gap_size`, `enable_x_padding` — **only if** those keys exist in the target schema.
 - Prefer translation keys for block `name` when the theme does: e.g. `"t:blocks.image"`.
 - Align `color_scheme` and spacing with the theme’s design system.
 
 ## Common patterns
 
-### 3-column grid with image and button per column
+There is no universal block naming across Shopify themes. Derive structure from **Discover allowed block types**, parent `{% schema %}`, and existing `templates/*.json` in the workspace. When a bundled example in `examples/` matches this theme (see [examples/README.md](examples/README.md)), you may use it for nested-layout ideas—still verify every `type` and setting key in schema.
 
-**Structure:**
+## Settings best practices
 
-```
-layout__grid (row_desktop: 3)
-  └── _g__grid-item (×3)
-      └── image
-      └── g__button
-```
-
-**Illustrative nested block JSON** (verify types/settings in the target theme):
-
-```json
-{
-  "type": "layout__grid",
-  "settings": {
-    "row_desktop": 3,
-    "row_mobile": 1,
-    "gap_size": "default",
-    "enable_x_padding": false
-  },
-  "blocks": {
-    "grid_item_1": {
-      "type": "_g__grid-item",
-      "blocks": {
-        "image_1": {
-          "type": "image",
-          "settings": {
-            "enable_x_padding": false,
-            "enable_t_padding": false,
-            "enable_b_padding": false
-          }
-        },
-        "button_1": {
-          "type": "g__button",
-          "settings": {
-            "url": "/collections/all",
-            "enable_x_padding": false
-          }
-        }
-      },
-      "block_order": ["image_1", "button_1"]
-    }
-  },
-  "block_order": ["grid_item_1", "grid_item_2", "grid_item_3"]
-}
-```
-
-### Flex row with multiple items
-
-`layout__flex` with `direction: flex-row` and several `_g__flex-item` blocks; set `width_desktop` / `width_mobile` per schema.
-
-### Nested containers
-
-```
-_g__grid-item
-  └── g__container (optional)
-      └── image
-      └── richtext
-      └── g__button
-```
-
-## Settings best practices (block-based themes)
-
-**Layout:**
-
-- `row_desktop` / `row_mobile` — Grid columns (often 1–12 / 1–4).
-- `gap_size` — e.g. `"none"`, `"xs"`, `"sm"`, `"default"`, `"md"`, `"lg"`, `"xl"`.
-- `enable_x_padding` — Often `false` for full-bleed rows.
-- `spacing_top` / `spacing_bottom` — Vertical spacing if present in schema.
-- `visibility` — Responsive visibility classes if the theme defines them.
-
-**Content:**
-
-- `enable_x_padding`, `enable_t_padding`, `enable_b_padding` — Per-block padding.
-- `color_scheme` — Theme schemes.
-- `aspect_ratio` — For images.
-- `x_alignment` — e.g. `text-left`, `text-center`, `text-right`.
+Setting IDs and enums are **defined per block and section** in `{% schema %}`. Prefer defaults from schema and patterns from existing JSON in the same theme. Theme-specific lists of common keys (for themes that document them in this package) appear only under **`examples/`** for the matching theme file.
 
 ## Validation checklist
 
@@ -194,7 +152,7 @@ _g__grid-item
 - [ ] Section and block **instance ids** are unique in scope
 - [ ] Every `block_order` matches the keys in the sibling `blocks` object at that level
 - [ ] Top-level `order` lists every section key to render
-- [ ] Each `type` exists in the theme’s `sections/` or `blocks/` (and is allowed by the parent schema)
+- [ ] Each `type` exists in the theme’s `sections/` or `blocks/` (and is allowed by the parent schema) — satisfied by **Discover allowed block types**
 - [ ] Nested block types are valid for the parent
 - [ ] Setting keys and value types match `{% schema %}`
 
@@ -211,5 +169,6 @@ _g__grid-item
 ## Further reading in this package
 
 - [reference/shopify-json.md](reference/shopify-json.md) — Official docs links, filenames, platform limits
+- [examples/README.md](examples/README.md) — How to pick a bundled theme example; index of files
 
 In a **theme repository**, also use project rules such as `templates.mdc`, `blocks.mdc`, and `schemas.mdc` when present under `.cursor/rules/`.

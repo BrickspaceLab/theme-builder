@@ -1,4 +1,4 @@
-# Theme Agent
+# Theme Builder
 
 Agent skill for authoring **Shopify Online Store 2.0** JSON templates (`templates/*.json`) and block-based theme JSON: discover section and block types from the theme on disk, align settings with Liquid `{% schema %}`, and emit valid template JSON.
 
@@ -10,6 +10,7 @@ Repository: [github.com/BrickspaceLab/theme-agent](https://github.com/Brickspace
 |------|---------|
 | [SKILL.md](SKILL.md) | Instructions for AI agents (YAML frontmatter + workflow) |
 | [reference/shopify-json.md](reference/shopify-json.md) | Concepts, template filenames, links to Shopify documentation |
+| [examples/](examples/) | Theme-specific patterns and index ([examples/README.md](examples/README.md)) |
 
 ## Install
 
@@ -41,7 +42,7 @@ npx skills add BrickspaceLab/theme-agent
   npx skills add BrickspaceLab/theme-agent -g -a cursor -y
   ```
 
-The CLI copies or symlinks the skill folder; `reference/` is included alongside `SKILL.md`.
+The CLI copies or symlinks the skill folder; `reference/` and `examples/` are included alongside `SKILL.md`.
 
 Discoverability on the [skills.sh leaderboard](https://skills.sh/) comes from anonymous install telemetry from the CLI, not a separate signup ([docs](https://skills.sh/docs)). Opt out of telemetry: `DISABLE_TELEMETRY=1`.
 
@@ -62,16 +63,6 @@ Many tools expect `SKILL.md` under a named folder, for example:
 
 The `npx skills add` command can target [many agents](https://github.com/vercel-labs/skills#supported-agents); use `-a <agent>` to choose.
 
-### LobeHub marketplace
-
-If this skill is published there, install with the marketplace CLI (see [LobeHub Skills](https://lobehub.com/skills)) and your agent’s `--agent` flag, for example:
-
-```bash
-npx -y @lobehub/market-cli skills install <owner-repo> --agent cursor
-```
-
-Replace `<owner-repo>` with the marketplace identifier once published.
-
 ## Scope
 
 - **In scope:** JSON templates under `templates/`, section `type` / block `type` strings that exist in **that** theme, settings keys defined in section and block schemas, blocks under `blocks/` when the theme uses them.
@@ -91,8 +82,6 @@ Replace `<owner-repo>` with the marketplace identifier once published.
    ```
 
    Public install: `npx skills add BrickspaceLab/theme-agent`.
-
-2. **LobeHub** or other marketplaces: follow their contributor flow (often linking the GitHub repo and using `@lobehub/market-cli` or the site UI). This repo may be tagged at `v1.0.0` for versioned installs.
 
 ## License
 
