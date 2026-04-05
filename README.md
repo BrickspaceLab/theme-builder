@@ -1,6 +1,6 @@
 # Theme Skill
 
-A skill for creating, updating, and editing Shopify JSON template files. Loads workflow instructions into the AI's context so it discovers real block and section types from your theme before making changes.
+Edits Shopify JSON template files using your theme's actual block and section types. Just describe what you want or drop in a screenshot.
 
 ```bash
 npx skills add BrickspaceLab/theme-skill

@@ -14,9 +14,10 @@ Do this **after** [Discover allowed block types](../SKILL.md) on the workspace t
 ## Index
 
 
-| File                     | Documents                                                                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| [slab/README.md](slab/README.md) | Slab / Brickspace-style blocks (`layout__grid`, `_g__grid-item`, etc.); narrative and structure trees here, concrete JSON alongside (`*.json`, including one full **section** example) |
+| File | Documents |
+| --- | --- |
+| [slab.md](slab.md) | Entry point: links to the Slab folder (essential **block reference** + JSON examples). |
+| [slab/README.md](slab/README.md) | Slab / Brickspace-style blocks: curated layout/content/cards reference, structure trees, and concrete `*.json` (including one full **section** example). Full inventory: theme `blocks/` or `scripts/generate_slab_block_reference.py`. |
 
 
 Add new rows here when you add `examples/<theme>.md` files.
