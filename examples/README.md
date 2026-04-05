@@ -1,4 +1,4 @@
-# Theme-specific examples (bundled knowledge)
+# Theme-specific examples
 
 All **named-theme** vocabulary—concrete block `type` strings, nested layouts, and theme-specific setting keys—lives **only** in files under this folder. [SKILL.md](../SKILL.md) stays theme-agnostic; it tells you how to discover blocks on disk and **how to pick which bundled example to open**, not which theme you are using.
 
@@ -6,16 +6,18 @@ All **named-theme** vocabulary—concrete block `type` strings, nested layouts, 
 
 Do this **after** [Discover allowed block types](../SKILL.md) on the workspace theme so you know which `type` strings actually exist.
 
-1. **Read the index** below and each file’s title/intro to see which theme or theme family it documents.
-2. **Match the workspace theme** using any of: theme `README`, package or vendor name in `config/`, the user’s prompt, or **overlap** between basenames in `blocks/*.liquid` and the block types described in an example file.
-3. **Open the best-matching file** only when the overlap is strong (same naming style and types). Use it for layout ideas and sample JSON **after** confirming every `type` still appears in the target theme’s schemas.
-4. If **no** bundled example fits, **do not** use one—copy structure from existing `templates/*.json` in that theme instead.
-5. If multiple could fit or the theme is unknown, **ask the user** which theme or example family to follow.
+1. **Identify the theme** — Read `config/settings_schema.json` and check the `theme_info` object for `theme_name`. This is the most reliable way to identify the theme without asking the user.
+2. **Open the best-matching file** only when the overlap is strong (same naming style and types). Use it for layout ideas and sample JSON **after** confirming every `type` still appears in the target theme’s schemas.
+3. If **no** bundled example fits, **do not** use one—copy structure from existing `templates/*.json` in that theme instead.
+4. If multiple could fit or the theme is unknown, **ask the user** which theme or example family to follow.
 
 ## Index
 
+
 | File | Documents |
-|------|-----------|
-| [slab-theme.md](slab-theme.md) | Slab / Brickspace-style blocks (`layout__grid`, `_g__grid-item`, etc.) |
+| --- | --- |
+| [slab.md](slab.md) | Entry point: links to the Slab folder (essential **block reference** + JSON examples). |
+| [slab/README.md](slab/README.md) | Slab / Brickspace-style blocks: curated layout/content/cards reference, structure trees, and concrete `*.json` (including one full **section** example). Full inventory: theme `blocks/` or `scripts/generate_slab_block_reference.py`. |
+
 
 Add new rows here when you add `examples/<theme>.md` files.

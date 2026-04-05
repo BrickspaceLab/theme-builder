@@ -1,0 +1,18 @@
+{
+  "type": "_g__grid-item",
+  "blocks": {
+    "container_1": {
+      "type": "g__container",
+      "blocks": {
+        "image_1": { "type": "image", "settings": {} },
+        "richtext_1": { "type": "richtext", "settings": {} },
+        "button_1": {
+          "type": "g__button",
+          "settings": { "url": "/collections/all" }
+        }
+      },
+      "block_order": ["image_1", "richtext_1", "button_1"]
+    }
+  },
+  "block_order": ["container_1"]
+}
