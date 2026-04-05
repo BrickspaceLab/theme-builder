@@ -6,3 +6,5 @@ Edits Shopify JSON template files using your theme's actual block and section ty
 npx skills add BrickspaceLab/theme-skill
 ```
 
+**Theme partners:** to add your theme’s block standards to this skill, see [docs/adding-theme-support.md](docs/adding-theme-support.md).
+

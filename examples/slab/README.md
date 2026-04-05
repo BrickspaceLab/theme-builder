@@ -107,7 +107,7 @@ _g__grid-item
 
 ### 3-column flex, nested image grid, footer row
 
-![Theme editor preview: three-column flex layout, nested two-cell image grid, and split footer row](../images/three-column-flex-nested-image-grid-footer-row.png)
+![Theme editor preview: three-column flex layout, nested two-cell image grid, and split footer row](three-column-flex-nested-image-grid-footer-row.png)
 
 
 Two stacked flex layouts under one `section`—a main row with custom column widths (navigation column, bio column, wide column with stacked richtext and a nested two-cell image grid) and a footer row with a top border and split left/right richtext.

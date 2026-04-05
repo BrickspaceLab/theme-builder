@@ -156,6 +156,7 @@ Run the **Validation checklist** below before finishing.
 | ------------------------------------------------------ | --------------------------------------------------- |
 | [reference/shopify.md](reference/shopify.md) | Official docs links, filenames, platform limits     |
 | [examples/README.md](examples/README.md)               | How to pick a bundled theme example; index of files |
+| [docs/adding-theme-support.md](docs/adding-theme-support.md) | Theme partners: add bundled block standards under `examples/` |
 
 
 In a **theme repository**, also use project rules such as `templates.mdc`, `blocks.mdc`, and `schemas.mdc` when present under `.agent/rules/`.

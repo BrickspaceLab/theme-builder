@@ -1,5 +1,7 @@
 # Theme-specific examples
 
+**For theme authors:** how to add a new bundled theme family is documented in [docs/adding-theme-support.md](../docs/adding-theme-support.md).
+
 All **named-theme** vocabulary—concrete block `type` strings, nested layouts, and theme-specific setting keys—lives **only** in files under this folder. [SKILL.md](../SKILL.md) stays theme-agnostic; it tells you how to discover blocks on disk and **how to pick which bundled example to open**, not which theme you are using.
 
 ## Choosing the best example to reference
