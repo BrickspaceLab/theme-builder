@@ -1,11 +1,11 @@
-# theme builder
+# theme skill
 
 Theme Builder is a skill for **designers and developers** who work in **Shopify Online Store 2.0** themes and want the agent to ship real structure—not invented block names or settings that do not exist in the theme you are editing.
 
 Install:
 
 ```bash
-npx skills add BrickspaceLab/theme-builder
+npx skills add BrickspaceLab/theme-skill
 ```
 
 The skill covers **JSON templates** (`templates/*.json`), **theme blocks** and section JSON, **Liquid `{% schema %}`** alignment, **discovery-first** workflows so types always match `blocks/` and `sections/` on disk, **design mockups** (what to infer vs what to verify in schema), and optional **bundled examples** for themes documented under [`examples/`](examples/).
