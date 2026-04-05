@@ -1,4 +1,4 @@
-# Shopify template reference
+# Shopify reference
 
 This file supplements [SKILL.md](../SKILL.md) with terminology and links. For block-type patterns when the theme uses `blocks/`, follow **Discover allowed block types** and **Analyze block and section schemas** in SKILL.md. Optional theme-specific recipes live under [examples/](../examples/). **Always** confirm `type` values and settings against the **target theme**'s `sections/`, `blocks/`, and `{% schema %}`.
 
