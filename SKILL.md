@@ -1,7 +1,7 @@
 ---
-
 ## name: theme-skill  
-description: Theme Skill: create and edit Shopify Online Store 2.0 JSON templates  (templates/*.json) and theme JSON that uses blocks from /blocks: discover allowed block types, analyze {% schema %}, and compile valid sections/order/block_order structures. Use when working with Shopify templates,JSON templates, the theme editor, or when adding layouts, grids, sections, or blocks to a Shopify theme.
+## description: Create and edit Shopify Online Store 2.0 JSON templates  (templates/*.json) and theme JSON that uses blocks from /blocks: discover allowed block types, analyze {% schema %}, and compile valid sections/order/block_order structures. Use when working with Shopify templates,JSON templates, the theme editor, or when adding layouts, grids, sections, or blocks to a Shopify theme.
+---
 
 ## When to use
 
