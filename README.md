@@ -5,3 +5,13 @@ Edits Shopify JSON template files using your theme's actual block and section ty
 ```bash
 npx skills add BrickspaceLab/theme-skill
 ```
+
+Once installed it's easy - just easy natrual language to build Shopify websites 
+
+```
+Update my index.json template with...
+```
+
+```
+Use the screenshot and create a new page.about.json template
+```
