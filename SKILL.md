@@ -58,6 +58,7 @@ Do this **before** naming or emitting any `type` in JSON. This is the operationa
 
 1. **List** files in `blocks/` — For themes using theme blocks, the basename of `blocks/<name>.liquid` is typically a valid block `type` (confirm in schema).
 2. **Read** `{% schema %}` on each **section** you add or edit in the template, and on each **block** file you nest. Collect every block `type` the parent allows (specific types, `@theme`, `@app`, etc., per Shopify rules for that parent).
+   > **`_`-prefix caveat:** Blocks whose filename starts with `_` (e.g. `_stat-bar.liquid`) may **not** be matched by `@theme` in a parent schema, even if they have `presets`. Shopify theme check treats `_`-prefixed blocks as private/static and may require them to be **explicitly listed** in the parent’s `blocks` array. Before nesting a `_`-prefixed block inside a parent that only declares `@theme`, verify by checking existing templates or presets for a precedent. If none exists, the parent schema needs a new `{ "type": "_block-name" }` entry—which is a Liquid edit, not a JSON-only change.
 3. **Build the allowed set** — Union of: types from `blocks/` that the parent schema permits, types declared in the parent’s `blocks` array, and section `type` values from `sections/<type>.liquid` for template-level `sections`.
 4. **Only use types in that set.** If the user asks for a layout that no block provides, propose the **closest real types**, copy a working template in the same theme, or note that **adding a new block** is theme development work outside JSON-only edits.
 
@@ -82,7 +83,10 @@ Within the **allowed type set** from Step 2:
 For each block or section, read `{% schema %}`:
 
 1. **Nested blocks** — `"blocks": [{ "type": "@theme" }]` vs specific types vs `"blocks": []`.
-2. **Settings** — Required vs optional, defaults, types (range, select, checkbox, etc.).
+2. **Settings** — Required vs optional, defaults, types. Pay attention to:
+   - **`range`** — Values must land on `min + (N * step)`. A range with `min: 10, max: 48, step: 2` rejects `13` (use `14`).
+   - **`select`** — Values must exactly match one of the `options[].value` strings. Do not invent values even if they look like valid CSS—only the listed options pass validation.
+   - **`visible_if`** — Settings gated by `visible_if` may still be validated even when hidden. Prefer omitting them entirely rather than setting values that won't take effect (e.g. don't set `font_size` when `type_preset != 'custom'`).
 3. **Presets** — Recommended configurations.
 
 ### Step 6 — Compile JSON structure
@@ -125,6 +129,15 @@ Follow Shopify’s JSON template shape. If the theme ships **Cursor rules** (e.g
 - Prefer translation keys for block `name` when the theme does: e.g. `"t:blocks.image"`.
 - Align `color_scheme` and spacing with the theme’s design system.
 
+**Richtext content rules:**
+
+Shopify sanitizes HTML in `richtext` and `text` (rich) settings. Only a limited set of tags and attributes are allowed:
+
+- **Allowed tags:** `p`, `h1`–`h6`, `ul`, `ol`, `li`, `a`, `br`, `strong`, `em`, `span`
+- **No `style` attributes** — `<span style="color: red">` will be stripped. Use `<em>` or `<strong>` tags instead, then add CSS rules in the section/block stylesheet targeting those tags (e.g. `.my-section em { color: var(--accent); font-style: normal; }`).
+- **No `class` attributes** on inline elements in richtext.
+- If the design requires colored text within a single text block, this is a **CSS customization gap**—note it and add a stylesheet rule rather than using inline styles.
+
 ### Step 7 — Validate
 
 Run the **Validation checklist** below before finishing.
@@ -136,6 +149,10 @@ Run the **Validation checklist** below before finishing.
 - Each `type` exists in `sections/` or `blocks/` and is allowed by the parent schema
 - Nested block types are valid for the parent
 - Setting keys and value types match `{% schema %}`
+- Range values land on valid steps (`min + N*step`)
+- Select values match an `options[].value` exactly
+- No `style` or `class` attributes in richtext content strings
+- `_`-prefixed blocks are explicitly listed (not just `@theme`) in every parent they nest inside
 
 ## Error handling
 
@@ -144,6 +161,10 @@ Run the **Validation checklist** below before finishing.
 | ----------------------- | ---------------------------------------------------------------- |
 | Block/section not found | Search `blocks/` and `sections/`; suggest close matches          |
 | Invalid nesting         | Re-read parent `{% schema %}` `blocks` array                     |
+| `_` block not allowed   | Block has `_` prefix; add it explicitly to parent schema `blocks` array—`@theme` won't match it |
+| `style` attr stripped   | Shopify sanitizes richtext; use `<em>`/`<strong>` + CSS instead of inline styles |
+| Range step violation    | Read the schema `step` value; round your value to the nearest valid step       |
+| Invalid select value    | Only use values from the schema `options` array; don't invent CSS expressions  |
 | Schema too large        | Copy patterns from a working template in the same theme          |
 | Ambiguous request       | Ask which template file and which section/block instances change |
 | Generated theme output  | Edit source per theme docs, then build                           |
