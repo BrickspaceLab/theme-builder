@@ -124,11 +124,7 @@ For every section or block type you will emit, collect the schema constraints fo
 - **Typed settings** — Record expected JSON value types for `checkbox`, `number`, `text`, `richtext`, `image_picker`, `url`, `collection`, `product`, `blog`, and `page`.
 - **`visible_if` settings** — Do not skip validation. Shopify may validate hidden settings during upload, so omit hidden custom-only settings or normalize them too.
 
-When using this theme's generic blocks, common upload-only range traps include:
-
-- Section and layout spacing such as `spacing_top` and `spacing_bottom` often use `step: 5`.
-- Image and container `width` often use `step: 5`.
-- Rich text `font_size_custom` uses even values (`step: 2`), and `line_height_custom` must be at least `100` and use `step: 5`.
+Common upload-only range traps vary by theme. After selecting a bundled example reference, consult that reference for theme-specific setting families and common validation failures. Regardless of theme, every emitted range value must match the target schema's `min`, `max`, and `step`.
 
 ### Step 6 — Apply theme design controls
 
@@ -291,8 +287,8 @@ Do not start a duplicate dev server if one is already running. Prefer the existi
 | `_` block not allowed   | Block has `_` prefix; choose an existing allowed block or report that schema/Liquid work is outside this JSON-only skill |
 | `style` attr stripped   | Shopify sanitizes richtext; use schema-defined text settings where available; otherwise note the theme-code customization gap |
 | Range step violation    | Read the schema `step` value; round your value to the nearest valid step       |
-| Hidden range violation  | Omit hidden custom-only settings or validate them anyway; for example, `font_size_custom` odd values fail when `step` is `2` |
-| Range min/max violation | Keep values within schema bounds; for example, `line_height_custom` must be at least `100` when the schema says `min: 100` |
+| Hidden range violation  | Omit hidden custom-only settings or validate them anyway; hidden settings can still fail upload validation |
+| Range min/max violation | Keep values within the target schema bounds, even when copying settings from another template or example |
 | Invalid select value    | Only use values from the schema `options` array; don't invent CSS expressions  |
 | Mockup image copied     | Remove screenshot-derived image values; preserve the layout with valid empty image/media blocks |
 | Schema too large        | Copy patterns from a working template in the same theme          |
@@ -307,7 +303,6 @@ Do not start a duplicate dev server if one is already running. Prefer the existi
 | ------------------------------------------------------ | --------------------------------------------------- |
 | [reference/shopify.md](reference/shopify.md) | Official docs links, filenames, platform limits     |
 | [examples/README.md](examples/README.md)               | How to pick a bundled theme example; index of files |
-| [docs/adding-theme-support.md](docs/adding-theme-support.md) | Theme partners: add bundled block standards under `examples/` |
 
 
 In a **theme repository**, also use project rules such as `templates.mdc`, `blocks.mdc`, and `schemas.mdc` when present under `.agent/rules/`.

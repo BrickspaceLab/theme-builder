@@ -104,6 +104,14 @@ Slab exposes most visual changes through schema settings. Prefer these existing 
 - Animation values must be exact schema options. Common load values include `""`, `load-fadein`, and `load-fadein-offset`; common scroll values include `""`, `scroll-fullblurinout-10-90`, `scroll-slidedownup-10-90`, `scroll-slideupdown-10-90`, `scroll-slideleftright-10-90`, `scroll-sliderightleft-10-90`, and `scroll-zoominout-10-90` when listed by that block.
 - Do not copy a setting from one block type into another unless that destination block schema declares the same setting ID and accepts the same value.
 
+### Slab validation traps
+
+Common Slab upload-only range traps include:
+
+- Section and layout spacing such as `spacing_top` and `spacing_bottom` often use `step: 5`.
+- Image and container `width` often use `step: 5`.
+- Rich text `font_size_custom` uses even values (`step: 2`), and `line_height_custom` must be at least `100` and use `step: 5`.
+
 ## Examples
 
 ### 3-column grid with image and button per column

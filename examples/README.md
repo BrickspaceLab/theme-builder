@@ -1,6 +1,6 @@
 # Theme-specific examples
 
-**For theme authors:** how to add a new bundled theme family is documented in [docs/adding-theme-support.md](../docs/adding-theme-support.md).
+For theme authors: add each bundled theme family under its own `examples/<theme>/` folder, then add a short index row below.
 
 All **named-theme** vocabulary—concrete block `type` strings, nested layouts, and theme-specific setting keys—lives **only** in files under this folder. [SKILL.md](../SKILL.md) stays theme-agnostic; it tells you how to discover blocks on disk and **how to pick which bundled example to open**, not which theme you are using.
 
@@ -18,7 +18,7 @@ Do this **after** [Discover allowed block types](../SKILL.md) on the workspace t
 
 | File | Documents |
 | --- | --- |
-| [slab/README.md](slab/README.md) | Slab / Brickspace-style blocks: essential **block reference**, curated layout/content/cards reference, structure trees, and concrete `*.json` (including one full **section** example). Full inventory: theme `blocks/` or `scripts/generate_slab_block_reference.py` (stdout). |
+| [slab/README.md](slab/README.md) | Slab theme reference with block groups, design controls, layout recipes, validation traps, and concrete `*.json` examples. |
 
 
-Add new rows here when you add `examples/<theme>.md` files.
+Add new rows here when you add `examples/<theme>/README.md` files.
