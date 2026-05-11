@@ -18,7 +18,7 @@ Do this **after** [Discover allowed block types](../SKILL.md) on the workspace t
 
 | File | Documents |
 | --- | --- |
-| [slab/README.md](slab/README.md) | Slab theme reference with block groups, design controls, layout recipes, validation traps, and concrete `*.json` examples. |
+| [slab/README.md](slab/README.md) | Slab / Brickspace-style blocks: essential **block reference**, page-building checklist, curated layout/content/cards reference, structure trees, and concrete `*.json` (including one full **section** example). Full inventory: theme `blocks/` or `scripts/generate_slab_block_reference.py` (stdout). |
 
 
 Add new rows here when you add `examples/<theme>/README.md` files.

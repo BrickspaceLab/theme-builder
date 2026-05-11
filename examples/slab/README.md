@@ -1,6 +1,8 @@
 # Slab
 
-This file holds bundled knowledge for the Slab Shopify theme. 
+This file holds bundled knowledge for the Slab Shopify theme.
+
+Use [checklist.md](checklist.md) when building, reviewing, or testing Slab theme pages.
 
 ## Block reference
 
